@@ -9,7 +9,7 @@ class SpiderSpider(scrapy.Spider):
     allowed_domains = ["books.toscrape.com"]
     start_urls = ["https://books.toscrape.com"]
 
-    def _parse_single_book(self, url) -> dict:
+    def _parse_single_book(self, url: str) -> dict:
         page = requests.get(url).content
         page_soup = BeautifulSoup(page, "html.parser")
 
@@ -17,7 +17,7 @@ class SpiderSpider(scrapy.Spider):
 
         return {
             "category": page_soup.select("ul.breadcrumb > li")[2]
-                    .text.replace("\n", ""),
+            .text.replace("\n", ""),
             "description": page_soup.find(
                 "meta", {"name": "description"}
             )["content"].replace("\n", ""),
